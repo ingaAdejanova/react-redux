@@ -1,0 +1,6 @@
+export const OPEN_MODAL = 'OPEN_MODAL' as const
+export const CLOSE_MODAL = 'CLOSE_MODAL' as const
+
+export const FETCH_BIRTHDAYS_REQUEST = 'FETCH_BIRTHDAYS_REQUEST' as const
+export const FETCH_BIRTHDAYS_SUCCESS = 'FETCH_BIRTHDAYS_SUCCESS' as const
+export const FETCH_BIRTHDAYS_FAILURE = 'FETCH_BIRTHDAYS_FAILURE' as const
