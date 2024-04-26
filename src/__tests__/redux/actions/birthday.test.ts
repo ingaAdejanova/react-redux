@@ -12,6 +12,9 @@ jest.mock('../../../api/fetcher', () => ({
 
 const mockedFetchData = fetchData as jest.MockedFunction<typeof fetchData>
 
+const MONTH = 5
+const DAY = 20
+
 describe('Redux Actions', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -40,7 +43,7 @@ describe('Redux Actions', () => {
     const birthdays = [{ text: 'Sara', year: 1995 }]
     mockedFetchData.mockResolvedValue({ births: birthdays })
 
-    await fetchBirthdays()(dispatch)
+    await fetchBirthdays(MONTH, DAY)(dispatch)
 
     expect(dispatch).toHaveBeenCalledWith(fetchBirthdaysRequest())
     expect(dispatch).toHaveBeenCalledWith(fetchBirthdaysSuccess(birthdays))
@@ -49,12 +52,12 @@ describe('Redux Actions', () => {
   it('should dispatch fetchBirthdaysFailure after failed data fetch', async () => {
     const dispatch = jest.fn()
 
-    const error = 'Error message'
+    const error = { message: 'Error message' }
     mockedFetchData.mockRejectedValue(error)
 
-    await fetchBirthdays()(dispatch)
+    await fetchBirthdays(MONTH, DAY)(dispatch)
 
     expect(dispatch).toHaveBeenCalledWith(fetchBirthdaysRequest())
-    expect(dispatch).toHaveBeenCalledWith(fetchBirthdaysFailure(error))
+    expect(dispatch).toHaveBeenCalledWith(fetchBirthdaysFailure(error.message))
   })
 })

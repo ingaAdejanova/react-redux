@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { fetchBirthdays, openModal } from '../../redux/actions'
 import { ModalType } from '../../redux/types/modal'
 import { Button } from '../../components/Button'
+import { getCurrentMonth, getCurrentDay } from '../../utils/date'
 import { BirthdayList } from './BirthdayList'
 
 const Container = styled.div`
@@ -38,8 +39,11 @@ const BirthdayPage = () => {
   const dispatch = useAppDispatch()
   const { birthdays, error, isLoading } = useAppSelector((state) => state.birthday)
 
+  const currentMonth = getCurrentMonth()
+  const currentDay = getCurrentDay()
+
   const handleFetchBirthdays = () => {
-    dispatch(fetchBirthdays())
+    dispatch(fetchBirthdays(currentMonth, currentDay))
   }
 
   useEffect(() => {
